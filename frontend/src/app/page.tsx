@@ -53,7 +53,7 @@ export default function LandingPage() {
             <img src="/fear-greed.png" alt="Fear & Greed" style={{ width: 60, height: 'auto', margin: '0 auto' }} />
             <div className="text-[10px] text-gray-400">CNN</div>
           </a>
-          <a href="https://www.tradinglogic.com/market-breadth" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center bg-white rounded-lg px-4 py-3 shadow border border-gray-200 min-w-[120px]">
+          <a href="https://www.trading-logic.com/index.html" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center bg-white rounded-lg px-4 py-3 shadow border border-gray-200 min-w-[120px]">
             <div className="text-xs text-gray-500">Market Breadth</div>
             <img src="/current_breadth.png" alt="Market Breadth" style={{ width: 60, height: 'auto', margin: '0 auto' }} />
             <div className="text-[10px] text-gray-400">Trading Logic</div>

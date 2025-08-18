@@ -1,4 +1,4 @@
-// File: /Users/z/Desktop/plan_B/frontend/src/app/api/auth/firebase/route.ts
+// File: /Users/z/Desktop/planB_0716/frontend/src/app/api/auth/firebase/route.ts
 import * as entry from '../../../../../../src/app/api/auth/firebase/route.js'
 import type { NextRequest } from 'next/server.js'
 

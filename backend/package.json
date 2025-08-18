@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
-    "build": "cd ../frontend && npm install && npm run build && cp -r .next ../backend/public",
+    "build": "npm install && cd ../frontend && npm install && npm run build && cd ../backend && mkdir -p public && cp -r ../frontend/.next/* public/ && echo 'Frontend built and copied to backend/public/'",
     "build:frontend": "cd ../frontend && npm install && npm run build",
     "copy:frontend": "cp -r ../frontend/.next ../backend/public",
     "test": "jest",

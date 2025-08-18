@@ -27,7 +27,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             className="bg-white rounded-2xl shadow-xl max-w-2xl w-full p-6"
-            onClick={e => e.stopPropagation()}
+            onClick={(e: React.MouseEvent) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-bold text-gray-900">{title}</h3>

@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
-    "build": "echo 'No build step needed for Node.js'",
+    "build": "cd ../frontend && npm install && npm run build && cp -r .next ../backend/public",
+    "build:frontend": "cd ../frontend && npm install && npm run build",
+    "copy:frontend": "cp -r ../frontend/.next ../backend/public",
     "test": "jest",
     "lint": "eslint src/",
     "db:seed": "node scripts/seed.js"

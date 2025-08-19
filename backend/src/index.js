@@ -30,6 +30,14 @@ app.use(express.urlencoded({ extended: true }));
 // 靜態文件服務 - 提供前端構建文件
 app.use(express.static(path.join(__dirname, '../public')));
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../front-end/dist')));
+ 
+  app.use((req, res) => {
+  res.sendFile(path.join(__dirname, '../front-end/dist/index.html'));
+});
+}
+
 // Health check - 放在最前面
 app.get('/health', (req, res) => {
   res.json({ 

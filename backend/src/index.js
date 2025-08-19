@@ -5,19 +5,12 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import connectDB from './config/database.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 
 // Security middleware
-app.use(helmet({
-  contentSecurityPolicy: false, // 暫時禁用 CSP 以支持前端
-}));
+app.use(helmet());
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:3000',
   credentials: true
@@ -26,18 +19,6 @@ app.use(cors({
 // Body parsing - 必須在路由之前
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
-
-// 靜態文件服務 - 提供前端構建文件
-app.use(express.static(path.join(__dirname, '../public')));
-
-// 老師的 debug 代碼
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../public')));
- 
-  app.use((req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
-});
-}
 
 // Health check - 放在最前面
 app.get('/health', (req, res) => {
@@ -82,15 +63,19 @@ app.get('/api/stocks/quote/:symbol', (req, res) => {
   });
 });
 
-// 前端路由處理 - 必須在所有 API 路由之後
-app.get('*', (req, res) => {
-  // 如果是 API 請求，返回 404
-  if (req.path.startsWith('/api/')) {
-    return res.status(404).json({ error: 'API endpoint not found' });
-  }
-  
-  // 否則提供前端頁面
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+// 404 handler for unknown routes
+app.use('*', (req, res) => {
+  res.status(404).json({ 
+    error: 'Route not found',
+    message: 'This is a backend API service. Frontend should be deployed separately.',
+    availableEndpoints: [
+      '/health',
+      '/api/test',
+      '/api/portfolio/*',
+      '/api/auth/*',
+      '/api/quote/*'
+    ]
+  });
 });
 
 // Error handling middleware
@@ -118,7 +103,7 @@ const startServer = async () => {
       console.log(`📍 Health check: http://localhost:${PORT}/health`);
       console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
       console.log(`📊 MongoDB URI: ${process.env.MONGODB_URI ? 'configured' : 'NOT CONFIGURED'}`);
-      console.log(`🌐 Frontend will be served from: http://localhost:${PORT}`);
+      console.log(`🌐 This is a backend-only service`);
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error);

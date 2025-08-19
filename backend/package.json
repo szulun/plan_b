@@ -7,9 +7,9 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
-    "build": "npm install && cd ../frontend && npm install && npm run build && cd ../backend && mkdir -p public && cp -r ../frontend/.next/* public/ && echo 'Frontend built and copied to backend/public/'",
-    "build:frontend": "cd ../frontend && npm install && npm run build",
-    "copy:frontend": "cp -r ../frontend/.next ../backend/public",
+    "build": "npm install",
+    "build:frontend": "echo 'Frontend build skipped - Root Directory is backend only'",
+    "copy:frontend": "echo 'Frontend copy skipped - Root Directory is backend only'",
     "test": "jest",
     "lint": "eslint src/",
     "db:seed": "node scripts/seed.js"

@@ -29,6 +29,10 @@ const nextConfig = {
       },
     ];
   },
+  // 確保 Next.js 知道這是生產環境
+  env: {
+    NODE_ENV: process.env.NODE_ENV || 'development',
+  },
 };
 
 module.exports = nextConfig;

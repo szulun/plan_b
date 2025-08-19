@@ -252,10 +252,13 @@ const CASH_ASSET = {
   purchaseDate: new Date(), // 補上 purchaseDate
 };
 
-// Yahoo Finance quote fetcher（使用 Render 後端 URL）
+// Yahoo Finance quote fetcher（使用環境變數）
 async function fetchYahooPrice(symbol: string): Promise<number | null> {
   try {
-    const url = `https://plan-b-p4t8.onrender.com/api/quote/${symbol}`;
+    const isDev = process.env.NODE_ENV === 'development';
+    const backendUrl = isDev ? 'http://localhost:5001' : 'https://plan-b-p4t8.onrender.com';
+    const url = `${backendUrl}/api/quote/${symbol}`;
+    
     const res = await fetch(url);
     const data = await res.json();
     console.log('fetchYahooPrice', symbol, data);

@@ -30,11 +30,12 @@ app.use(express.urlencoded({ extended: true }));
 // 靜態文件服務 - 提供前端構建文件
 app.use(express.static(path.join(__dirname, '../public')));
 
+// 老師的 debug 代碼
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../../front-end/dist')));
+  app.use(express.static(path.join(__dirname, '../public')));
  
   app.use((req, res) => {
-  res.sendFile(path.join(__dirname, '../../front-end/dist/index.html'));
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 }
 
@@ -46,7 +47,7 @@ app.get('/health', (req, res) => {
     message: 'Plan B Portfolio API is running',
     port: process.env.PORT || 'not set',
     nodeEnv: process.env.NODE_ENV || 'not set',
-    mongoUri: process.env.MONGODB_URI ? 'set' : 'not set'
+    mongoUri: process.env.MONGODB_URI ? 'set' : 'NOT CONFIGURED'
   });
 });
 
